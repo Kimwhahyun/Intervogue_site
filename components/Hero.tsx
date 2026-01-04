@@ -47,7 +47,6 @@ const content = {
 export default function Hero({ language }: HeroProps) {
   const text = content[language]
 
-  // ✅ 스크롤 함수 추가!
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact')
     if (contactSection) {
@@ -71,9 +70,30 @@ export default function Hero({ language }: HeroProps) {
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             {text.title}
           </h1>
-          <p className="text-2xl md:text-3xl mb-4 text-blue-200">
-            {text.subtitle}
+
+          {/* ✅ 모든 언어 줄바꿈 추가! */}
+          <p className="text-xl md:text-3xl mb-4 text-blue-200 leading-relaxed">
+            {language === 'ko' ? (
+              <>
+                한국에서 일본으로,
+                <br />
+                전략에서 실행까지
+              </>
+            ) : language === 'jp' ? (
+              <>
+                韓国から日本へ、
+                <br />
+                戦略から実行まで
+              </>
+            ) : (
+              <>
+                From Korea to Japan,
+                <br />
+                Strategy to Execution
+              </>
+            )}
           </p>
+
           <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
             {text.description}
           </p>
@@ -86,7 +106,6 @@ export default function Hero({ language }: HeroProps) {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="flex justify-center mb-20"
         >
-          {/* ✅ onClick 추가! */}
           <button 
             onClick={scrollToContact}
             className="bg-[--accent-red] hover:bg-red-700 text-white px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-2 transition-all hover:scale-105"
@@ -135,8 +154,8 @@ function StatCard({
   useEffect(() => {
     let start = 0
     const end = number
-    const duration = 2000 // 2초
-    const increment = end / (duration / 16) // 60fps 기준
+    const duration = 2000
+    const increment = end / (duration / 16)
 
     const timer = setInterval(() => {
       start += increment

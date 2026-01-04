@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'  // ← useEffect 삭제! (스크롤 감지 안 함)
+import { useState } from 'react'
 import { Menu, X, Globe } from 'lucide-react'
 
 interface NavigationProps {
@@ -12,7 +12,7 @@ const content = {
   ko: {
     logo: "INTERVOGUE",
     menu: ['소개', '서비스', '고객사', '인사이트', '문의하기'],
-    menuIds: ['about', 'service', 'client', 'insights', 'contact'],  // 'insight' → 'insights'로 수정
+    menuIds: ['about', 'service', 'client', 'insights', 'contact'],
   },
   jp: {
     logo: 'INTERVOGUE',
@@ -27,13 +27,10 @@ const content = {
 }
 
 export default function Navigation({ language, onLanguageChange }: NavigationProps) {
-  // ✅ isScrolled 삭제! (더 이상 필요 없음)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false)
 
   const text = content[language]
-
-  // ✅ useEffect 삭제! (스크롤 감지 안 함)
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -44,7 +41,7 @@ export default function Navigation({ language, onLanguageChange }: NavigationPro
   }
 
   return (
-<nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d] shadow-lg py-4 transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a365d] shadow-lg py-4 transition-all duration-300">
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="text-2xl font-bold text-white">
           {text.logo}
@@ -74,27 +71,27 @@ export default function Navigation({ language, onLanguageChange }: NavigationPro
 
             {isLangMenuOpen && (
               <div className="absolute top-full mt-2 right-0 bg-white shadow-lg rounded-lg overflow-hidden min-w-[100px]">
-                {(['ko', 'jp', 'en'] as const).map((lang) => (
-                  <button
-                    key={lang}
-                    onClick={() => {
-                      onLanguageChange(lang)
-                      setIsLangMenuOpen(false)
-                    }}
-                    className={`w-full px-4 py-2 text-left transition-colors uppercase font-semibold ${language === lang
-                        ? 'bg-[--background-light] text-[--accent-red]'
-                        : 'text-gray-700 hover:bg-gray-50 hover:text-[--accent-red]'
-                      }`}
-                  >
-                    {lang}
-                  </button>
-                ))}
+                {/* ✅ 선택된 언어 제외하고 표시! */}
+                {(['ko', 'jp', 'en'] as const)
+                  .filter((lang) => lang !== language)
+                  .map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => {
+                        onLanguageChange(lang)
+                        setIsLangMenuOpen(false)
+                      }}
+                      className="w-full px-4 py-2 text-left transition-colors uppercase font-semibold text-gray-700 hover:bg-gray-50 hover:text-[#c53030]"
+                    >
+                      {lang}
+                    </button>
+                  ))}
               </div>
             )}
           </div>
         </div>
 
-        {/* ✅ 수정: 모바일 햄버거 버튼을 흰색으로! */}
+        {/* 모바일 햄버거 버튼 */}
         <button
           className="md:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -110,30 +107,30 @@ export default function Navigation({ language, onLanguageChange }: NavigationPro
             <button
               key={item}
               onClick={() => scrollToSection(text.menuIds[index])}
-              className="block w-full text-left px-6 py-3 text-[--text-gray] hover:bg-gray-100 hover:text-[--accent-red] transition-colors"
+              className="block w-full text-left px-6 py-3 text-gray-900 font-medium hover:bg-gray-100 hover:text-[#c53030] transition-colors"
             >
               {item}
             </button>
           ))}
 
+          {/* ✅ 언어 선택 - 선택된 언어 제외! */}
           <div className="px-6 py-3 border-t border-gray-200 mt-2">
-            <p className="text-sm text-gray-500 mb-2">Language</p>
+            <p className="text-sm font-semibold text-gray-700 mb-3">Language</p>
             <div className="flex gap-2">
-              {(['ko', 'jp', 'en'] as const).map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => {
-                    onLanguageChange(lang)
-                    setIsMobileMenuOpen(false)
-                  }}
-                  className={`px-4 py-2 rounded-lg uppercase font-semibold transition-colors ${language === lang
-                      ? 'bg-[--accent-red] text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                >
-                  {lang}
-                </button>
-              ))}
+              {(['ko', 'jp', 'en'] as const)
+                .filter((lang) => lang !== language)
+                .map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => {
+                      onLanguageChange(lang)
+                      setIsMobileMenuOpen(false)
+                    }}
+                    className="px-4 py-2 rounded-lg uppercase font-semibold transition-colors bg-gray-200 text-gray-900 hover:bg-[#c53030] hover:text-white"
+                  >
+                    {lang}
+                  </button>
+                ))}
             </div>
           </div>
         </div>

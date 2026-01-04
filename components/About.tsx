@@ -63,7 +63,7 @@ const content = {
   },
   en: {
     title: 'Why Choose INTERVOGUE',
-    subtitle: 'Perfect Combination of 30 Years Experience and AI Technology',
+    subtitle: 'Perfect Combination of 40 Years Experience and AI Technology',
     cards: [
       {
         icon: Brain,
