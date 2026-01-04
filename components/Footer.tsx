@@ -10,7 +10,7 @@ const content = {
   ko: {
     company: {
       name: 'INTERVOGUE International DX',
-      description: '한국에서 일본으로, 전략에서 실행까지. AI 앙상블 방법론과 40년 패션 경험을 바탕으로 브랜드의 일본 진출을 지원합니다.',
+      description: '한국에서 일본으로, 전략에서 실행까지.| AI 앙상블 방법론과 40년 패션 경험을 바탕으로 브랜드의 일본 진출을 지원합니다.',
     },
     quickLinks: {
       title: '바로가기',
@@ -109,10 +109,13 @@ export default function Footer({ language }: FooterProps) {
               {text.company.name}
             </h3>
             <p className="text-sm text-gray-400 leading-relaxed">
-            한국에서 일본으로, 전략에서 실행까지.
-             <br />  {/* ← 줄바꿈! */}
-             AI 앙상블 방법론과 30년 패션 경험을 바탕으로 브랜드의 일본 진출을 지원합니다.
-            </p>
+            {text.company.description.split('|').map((line,index)=>(
+              <span key = {index}>
+                {line}
+                {index===0 && <br/>}
+              </span>
+              ))}
+              </p>
           </div>
 
           {/* 두 번째 컬럼: 바로가기 (서비스 삭제됨!) */}
