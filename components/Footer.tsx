@@ -51,7 +51,7 @@ const content = {
     contact: {
       title: '連絡先',
       email: 'intervog@chol.com',
-      phone: '+81-10-2267-9968',
+      phone: '+82-10-2267-9968',
       address: 'Gyeonggi-do, Korea',
     },
     social: {
